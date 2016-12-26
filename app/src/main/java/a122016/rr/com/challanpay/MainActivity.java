@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static android.R.attr.button;
@@ -69,29 +72,32 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public void execute_it(View view) {
 
-        // Get a reference to the ConnectivityManager to check state of network connectivity
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
 
-        // Get details on the currently active default data network
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            // Get a reference to the ConnectivityManager to check state of network connectivity
+            ConnectivityManager connMgr = (ConnectivityManager)
+                    getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // If there is a network connection, fetch data
-        if (networkInfo != null && networkInfo.isConnected()) {
-            //make progress bar visible
-            mProgressBar.setVisibility(View.VISIBLE);
+            // Get details on the currently active default data network
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-            // Get a reference to the LoaderManager, in order to interact with loaders.
-            LoaderManager loaderManager = getLoaderManager();
+            // If there is a network connection, fetch data
+            if (networkInfo != null && networkInfo.isConnected()) {
+                //make progress bar visible
+                mProgressBar.setVisibility(View.VISIBLE);
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
-            loaderManager.initLoader(USER_LOADER_ID, null, this);
-        } else {
-            Toast.makeText(this, "Network Connection Required.", Toast.LENGTH_SHORT).show();
-            ;
-        }
+                // Get a reference to the LoaderManager, in order to interact with loaders.
+                LoaderManager loaderManager = getLoaderManager();
+
+                // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+                // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+                // because this activity implements the LoaderCallbacks interface).
+                loaderManager.initLoader(USER_LOADER_ID, null, this);
+            } else {
+                Toast.makeText(this, "Network Connection Required.", Toast.LENGTH_SHORT).show();
+            }
+        } else
+            Toast.makeText(this, "Please enter all fields correctly.", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -128,5 +134,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<User> loader) {
 
+    }
+
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
     }
 }
