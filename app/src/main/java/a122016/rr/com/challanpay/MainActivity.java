@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void execute_it(View view) {
-        mProgressBar.setVisibility(View.VISIBLE);
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
+            //make progress bar visible
+            mProgressBar.setVisibility(View.VISIBLE);
+
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(USER_LOADER_ID, null, this);
         } else {
-            //// TODO: 12/26/2016
+            Toast.makeText(this, "Network Connection Required.", Toast.LENGTH_SHORT).show();;
         }
 
     }
