@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final String LOG_TAG = MainActivity.class.getName();
     /**
-     * URL for earthquake data from the server
+     * URL for user data from the server
      */
     private static final String USER_REQUEST_URL =
             "https://api.myjson.com/bins/efmvj";
     /**
-     * Constant value for the earthquake loader ID. We can choose any integer.
+     * Constant value for the user loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int USER_LOADER_ID = 1;
