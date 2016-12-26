@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static android.R.attr.button;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<User> {
 
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private EditText mPhoneNumber;
     private ProgressBar mProgressBar;
     private Button mCheckDetails;
+    private Button mPayButton;
     private TextView mNameText;
     private TextView mVehiclenumberText;
     private TextView mChallanDateText;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mPhoneNumber = (EditText) findViewById(R.id.phoneNo_text_view);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mCheckDetails = (Button) findViewById(R.id.check_status_button);
+        mPayButton = (Button) findViewById(R.id.pay_button);
         mNameText = (TextView) findViewById(R.id.name_text_view);
         mVehiclenumberText = (TextView) findViewById(R.id.vehicleNo_text_view);
         mChallanDateText = (TextView) findViewById(R.id.challan_date_text_view);
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mVehiclenumberText.setVisibility(View.INVISIBLE);
         mChallanDateText.setVisibility(View.INVISIBLE);
         mAmountText.setVisibility(View.INVISIBLE);
+        mPayButton.setVisibility(View.INVISIBLE);
     }
 
     public void execute_it(View view) {
@@ -84,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(USER_LOADER_ID, null, this);
         } else {
-            Toast.makeText(this, "Network Connection Required.", Toast.LENGTH_SHORT).show();;
+            Toast.makeText(this, "Network Connection Required.", Toast.LENGTH_SHORT).show();
+            ;
         }
 
     }
@@ -108,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             mAmountText.setText(String.valueOf("Amount due: Rs." + data.getmAmount()));
             mAmountText.setTextColor(Color.RED);
-
+            mPayButton.setVisibility(View.VISIBLE);
         }
         mProgressBar.setVisibility(View.GONE);
         mNameText.setVisibility(View.VISIBLE);
