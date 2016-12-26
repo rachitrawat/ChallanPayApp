@@ -42,11 +42,13 @@
 
 
         <Button
+            android:id="@+id/check_status_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Check Status" />
 
         <ProgressBar
+            android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -63,7 +65,14 @@
         />
 
     <TextView
-        android:id="@+id/vehicleNo_text_view"
+    android:id="@+id/vehicleNo_text_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    />
+
+    <TextView
+        android:id="@+id/challan_date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
