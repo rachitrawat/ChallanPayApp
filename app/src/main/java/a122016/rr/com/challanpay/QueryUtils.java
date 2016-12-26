@@ -22,8 +22,10 @@ package a122016.rr.com.challanpay;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -153,6 +155,8 @@ public final class QueryUtils {
      * parsing the given JSON response.
      */
     private static User extractFeatureFromJson(String UserJSON) {
+
+        Log.i(LOG_TAG, UserJSON);
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(UserJSON)) {
             return null;
@@ -171,14 +175,14 @@ public final class QueryUtils {
 
             // Store appropriate key values
             String name = baseJsonResponse.getString("name");
-            String vehicleNumber = baseJsonResponse.getString("vehicleNumber");
+            String vehicleNumber = baseJsonResponse.getString("vehicle_number");
             String challanDate = baseJsonResponse.getString("date");
             int amount = baseJsonResponse.getInt("amount");
-
+            boolean amount_is_paid = baseJsonResponse.getBoolean("amount_is_paid");
 
             // Create a new {@link User} object with the new data
             // from the JSON response.
-            User User = new User(name, vehicleNumber, challanDate, amount);
+            UserObject = new User(name, vehicleNumber, challanDate, amount, amount_is_paid);
 
 
         } catch (JSONException e) {

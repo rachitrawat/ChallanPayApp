@@ -10,12 +10,14 @@ public class User {
     private String mVehicleNumber;
     private String mChallanDate;
     private int mAmount;
+    private boolean mAmountIsPaid;
 
-    public User(String mName, String mVehicleNumber, String mChallanDate, int mAmount) {
+    public User(String mName, String mVehicleNumber, String mChallanDate, int mAmount, boolean mAmountIsPaid) {
         this.mName = mName;
         this.mVehicleNumber = mVehicleNumber;
         this.mChallanDate = mChallanDate;
         this.mAmount = mAmount;
+        this.mAmountIsPaid = mAmountIsPaid;
     }
 
     public String getmName() {
@@ -46,7 +48,16 @@ public class User {
         this.mChallanDate = mChallanDate;
     }
 
+    public boolean ismAmountIsPaid() {
+        return mAmountIsPaid;
+    }
+
+    public void setmAmountIsPaid(boolean mAmountIsPaid) {
+        this.mAmountIsPaid = mAmountIsPaid;
+    }
+
     public void setmAmount(int mAmount) {
         this.mAmount = mAmount;
+
     }
 }
