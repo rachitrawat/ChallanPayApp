@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * URL for user data from the server
      */
     private static final String USER_REQUEST_URL =
-            "https://api.myjson.com/bins/efmvj";
+            "https://api.myjson.com/bins/nuhy7";
     /**
      * Constant value for the user loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mNameText.setText("Name: " + data.getmName());
         mVehiclenumberText.setText("Vehicle Number: " + data.getmVehicleNumber());
         mChallanDateText.setText("Challan Date: " + data.getmChallanDate());
-        if (!data.ismAmountIsPaid()) {
+        if (data.getmStatus()) {
             mAmountText.setText(String.valueOf("Amount paid: " + data.getmAmount()));
             mAmountText.setTextColor(Color.parseColor("#388E3C"));
         } else {

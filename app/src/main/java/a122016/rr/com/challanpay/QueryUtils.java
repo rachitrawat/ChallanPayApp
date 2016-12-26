@@ -178,11 +178,11 @@ public final class QueryUtils {
             String vehicleNumber = baseJsonResponse.getString("vehicle_number");
             String challanDate = baseJsonResponse.getString("date");
             int amount = baseJsonResponse.getInt("amount");
-            boolean amount_is_paid = baseJsonResponse.getBoolean("amount_is_paid");
+            boolean status = baseJsonResponse.getBoolean("status");
 
             // Create a new {@link User} object with the new data
             // from the JSON response.
-            UserObject = new User(name, vehicleNumber, challanDate, amount, amount_is_paid);
+            UserObject = new User(name, vehicleNumber, challanDate, amount, status);
 
 
         } catch (JSONException e) {
