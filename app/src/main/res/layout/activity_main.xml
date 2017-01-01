@@ -64,8 +64,41 @@
             android:layout_height="wrap_content"
             android:textStyle="bold" />
 
+
+        <TextView
+            android:id="@+id/area_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+
+            />
+
         <TextView
             android:id="@+id/vehicleNo_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/vehicle_type_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/DL_Number_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/Collected_Documents_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"

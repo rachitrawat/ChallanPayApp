@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * URL for user data from the server
      */
     private static final String USER_REQUEST_URL =
-            "https://api.myjson.com/bins/nuhy7";
+            "https://api.myjson.com/bins/lt6fz";
     /**
      * Constant value for the user loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int USER_LOADER_ID = 1;
     private EditText mBookNumber;
     private EditText mChallanNumber;
-  //  private EditText mDate;
+    //  private EditText mDate;
     private ProgressBar mProgressBar;
     private Button mCheckDetails;
     private Button mPayButton;
@@ -47,6 +47,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView mVehiclenumberText;
     private TextView mChallanDateText;
     private TextView mAmountText;
+    private TextView mAreaText;
+    private TextView mVehicleTypeText;
+    private TextView mDLNumberText;
+    private TextView mCollectedDocumentsText;
+
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +73,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mBookNumber = (EditText) findViewById(R.id.bookNo_text_view);
         mChallanNumber = (EditText) findViewById(R.id.challanNo_text_view);
-  //      mDate = (EditText) findViewById(R.id.date_text_view);
+        //      mDate = (EditText) findViewById(R.id.date_text_view);
+        mAreaText = (TextView) findViewById(R.id.area_text_view);
+        mVehicleTypeText = (TextView) findViewById(R.id.vehicle_type_text_view);
+        mDLNumberText = (TextView) findViewById(R.id.DL_Number_text_view);
+        mCollectedDocumentsText = (TextView) findViewById(R.id.Collected_Documents_text_view);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mCheckDetails = (Button) findViewById(R.id.check_status_button);
         mPayButton = (Button) findViewById(R.id.pay_button);
@@ -65,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAmountText = (TextView) findViewById(R.id.amount_text_view);
         mProgressBar.setVisibility(View.INVISIBLE);
         mNameText.setVisibility(View.INVISIBLE);
+        mAreaText.setVisibility(View.INVISIBLE);
+        mDLNumberText.setVisibility(View.INVISIBLE);
+        mCollectedDocumentsText.setVisibility(View.INVISIBLE);
+        mVehicleTypeText.setVisibility(View.INVISIBLE);
         mVehiclenumberText.setVisibility(View.INVISIBLE);
         mChallanDateText.setVisibility(View.INVISIBLE);
         mAmountText.setVisibility(View.INVISIBLE);
@@ -77,15 +103,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // hide keyboard
         View view1 = this.getCurrentFocus();
         if (view1 != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
         }
 
-      //  if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
+        //  if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
 
-          if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("")) {
+        if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("")) {
 
-        // Get a reference to the ConnectivityManager to check state of network connectivity
+            // Get a reference to the ConnectivityManager to check state of network connectivity
             ConnectivityManager connMgr = (ConnectivityManager)
                     getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -112,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-
     @Override
     public Loader<User> onCreateLoader(int id, Bundle args) {
         return new UserLoader(this, USER_REQUEST_URL);
@@ -125,7 +150,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mNameText.setText("Name: " + data.getmName());
         mVehiclenumberText.setText("Vehicle Number: " + data.getmVehicleNumber());
         mChallanDateText.setText("Challan Date: " + data.getmChallanDate());
-        if (data.getmStatus()) {
+        mVehicleTypeText.setText("Vehicle Type: " + data.getmVehicleType());
+        mAreaText.setText("Area: " + data.getmArea());
+        mCollectedDocumentsText.setText("Collected Documents: " + data.getmCollectedDocuments());
+        mDLNumberText.setText("DL Number: " + data.getmDLNumber());
+        if (data.ismAmountStatus()) {
             mAmountText.setText(String.valueOf("Amount paid: " + data.getmAmount()));
             mAmountText.setTextColor(Color.parseColor("#388E3C"));
         } else {
@@ -138,6 +167,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mVehiclenumberText.setVisibility(View.VISIBLE);
         mChallanDateText.setVisibility(View.VISIBLE);
         mAmountText.setVisibility(View.VISIBLE);
+        mVehicleTypeText.setVisibility(View.VISIBLE);
+        mDLNumberText.setVisibility(View.VISIBLE);
+        mCollectedDocumentsText.setVisibility(View.VISIBLE);
+        mAreaText.setVisibility(View.VISIBLE);
 
 
     }
@@ -145,19 +178,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<User> loader) {
 
-    }
-
-    public static boolean isValidFormat(String format, String value) {
-        Date date = null;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
-            date = sdf.parse(value);
-            if (!value.equals(sdf.format(date))) {
-                date = null;
-            }
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-        return date != null;
     }
 }
