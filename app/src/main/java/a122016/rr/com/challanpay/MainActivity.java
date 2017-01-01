@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -71,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void execute_it(View view) {
+
+        // Check if no view has focus:
+        // hide keyboard
+        View view1 = this.getCurrentFocus();
+        if (view1 != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+        }
 
         if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
 
