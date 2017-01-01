@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int USER_LOADER_ID = 1;
     private EditText mBookNumber;
     private EditText mChallanNumber;
-    private EditText mDate;
+  //  private EditText mDate;
     private ProgressBar mProgressBar;
     private Button mCheckDetails;
     private Button mPayButton;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mBookNumber = (EditText) findViewById(R.id.bookNo_text_view);
         mChallanNumber = (EditText) findViewById(R.id.challanNo_text_view);
-        mDate = (EditText) findViewById(R.id.date_text_view);
+  //      mDate = (EditText) findViewById(R.id.date_text_view);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         mCheckDetails = (Button) findViewById(R.id.check_status_button);
         mPayButton = (Button) findViewById(R.id.pay_button);
@@ -81,9 +81,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
         }
 
-        if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
+      //  if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("") && !mDate.getText().toString().matches("") && isValidFormat("dd/MM/yyyy", mDate.getText().toString())) {
 
-            // Get a reference to the ConnectivityManager to check state of network connectivity
+          if (!mBookNumber.getText().toString().matches("") && mBookNumber.getText().toString().length() == 4 && !mChallanNumber.getText().toString().matches("")) {
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
             ConnectivityManager connMgr = (ConnectivityManager)
                     getSystemService(Context.CONNECTIVITY_SERVICE);
 
