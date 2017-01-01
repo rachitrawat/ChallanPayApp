@@ -2,6 +2,7 @@ package a122016.rr.com.challanpay;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -99,6 +100,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public void execute_it(View view) {
 
+        if (mCheckDetails.getText().toString().equals("Reset")) {
+            // restart the activity
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+
         // Check if no view has focus:
         // hide keyboard
         View view1 = this.getCurrentFocus();
@@ -171,8 +179,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mDLNumberText.setVisibility(View.VISIBLE);
         mCollectedDocumentsText.setVisibility(View.VISIBLE);
         mAreaText.setVisibility(View.VISIBLE);
-
-
+        mCheckDetails.setText("Reset");
+        mBookNumber.setVisibility(View.GONE);
+        mChallanNumber.setVisibility(View.GONE);
     }
 
     @Override
